@@ -8,8 +8,19 @@ def main():
     cur = con.cursor()
 
     cur.executescript(const.SQL_TABLE_SCRIPTS)
+
+    create_menu_items(cur)
+
     con.commit()
     con.close()
+
+    # new_con.close()
+
+
+def create_menu_items(cur):
+    cur.executemany(
+        "INSERT INTO item VALUES(:id, :nome, :categoria, :preço, :ativo)",
+        const.MENU_ITEMS)
 
 
 if __name__ == '__main__':
