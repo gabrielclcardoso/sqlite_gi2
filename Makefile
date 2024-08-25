@@ -9,4 +9,7 @@ setup: .venv
 install: .venv
 	$(VPATH)pip install $(pkg) && $(VPATH)pip freeze > requirements.txt;
 
+populate: .venv
+	$(VPATH)python3 populate.py
+
 .PHONY: install setup
