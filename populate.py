@@ -12,6 +12,7 @@ def main():
     create_tables(cur)
     create_menu_items(cur)
     create_mock_clients(cur, 1200)
+    create_mock_orders(cur)
 
     con.commit()
     con.close()
@@ -43,6 +44,12 @@ def create_mock_clients(cur, n):
         clients.append(cli)
     cur.executemany("INSERT INTO cliente VALUES(:id, :telefone, :nome, \
                     :aniversario, :data_de_registro)", clients)
+
+
+def create_mock_orders(cur):
+    res = cur.execute("SELECT id FROM cliente")
+    clients = res.fetchall()
+    print(clients)
 
 
 if __name__ == '__main__':
