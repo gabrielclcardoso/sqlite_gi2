@@ -9,14 +9,16 @@ def main():
     con = sqlite3.connect("onda_do_trigo.db")
     cur = con.cursor()
 
-    cur.executescript(const.SQL_TABLE_SCRIPTS)
-
+    create_tables(cur)
     create_menu_items(cur)
-
     create_mock_clients(cur, 1200)
 
     con.commit()
     con.close()
+
+
+def create_tables(cur):
+    cur.executescript(const.SQL_TABLE_SCRIPTS)
 
 
 def create_menu_items(cur):
