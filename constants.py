@@ -83,51 +83,51 @@ MENU_ITEMS = (
         "preço": 10.5, "ativo": True
     },
     {
-        "id": None, "nome": "Pão na chapa", "categoria": "Salgados",
+        "id": None, "nome": "Pão na chapa", "categoria": "Salgado",
         "preço": 4, "ativo": True
     },
     {
-        "id": None, "nome": "Pão c/ ovo", "categoria": "Salgados", "preço": 6,
+        "id": None, "nome": "Pão c/ ovo", "categoria": "Salgado", "preço": 6,
         "ativo": True
     },
     {
-        "id": None, "nome": "Misto quente", "categoria": "Salgados",
+        "id": None, "nome": "Misto quente", "categoria": "Salgado",
         "preço": 8.95, "ativo": True
     },
     {
-        "id": None, "nome": "Misto c/ ovo", "categoria": "Salgados",
+        "id": None, "nome": "Misto c/ ovo", "categoria": "Salgado",
         "preço": 9.95, "ativo": True
     },
     {
-        "id": None, "nome": "Pão de queijo", "categoria": "Salgados",
+        "id": None, "nome": "Pão de queijo", "categoria": "Salgado",
         "preço": 2.5, "ativo": True
     },
     {
-        "id": None, "nome": "Croissant", "categoria": "Salgados",
+        "id": None, "nome": "Croissant", "categoria": "Salgado",
         "preço": 7.9, "ativo": True
     },
     {
-        "id": None, "nome": "Mini sonho de creme", "categoria": "Doces",
+        "id": None, "nome": "Mini sonho de creme", "categoria": "Doce",
         "preço": 4.55, "ativo": True
     },
     {
         "id": None, "nome": "Mini sonho de doce de leite",
-        "categoria": "Doces", "preço": 4.55, "ativo": True
+        "categoria": "Doce", "preço": 4.55, "ativo": True
     },
     {
-        "id": None, "nome": "Cookie", "categoria": "Doces", "preço": 5.85,
+        "id": None, "nome": "Cookie", "categoria": "Doce", "preço": 5.85,
         "ativo": True
     },
     {
-        "id": None, "nome": "Bomba de chocolate", "categoria": "Doces",
+        "id": None, "nome": "Bomba de chocolate", "categoria": "Doce",
         "preço": 7.7, "ativo": True
     },
     {
-        "id": None, "nome": "Bomba de creme", "categoria": "Doces",
+        "id": None, "nome": "Bomba de creme", "categoria": "Doce",
         "preço": 7.7, "ativo": True
     },
     {
-        "id": None, "nome": "Donut", "categoria": "Doces",
+        "id": None, "nome": "Donut", "categoria": "Doce",
         "preço": 9, "ativo": True
     },
 )

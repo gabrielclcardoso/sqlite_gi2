@@ -12,7 +12,7 @@ def main():
     create_tables(cur)
     create_menu_items(cur)
     create_mock_clients(cur, 1200)
-    create_mock_orders(cur)
+    create_mock_orders(cur, 1)
 
     con.commit()
     con.close()
@@ -46,10 +46,28 @@ def create_mock_clients(cur, n):
                     :aniversario, :data_de_registro)", clients)
 
 
-def create_mock_orders(cur):
-    res = cur.execute("SELECT id FROM cliente")
-    clients = res.fetchall()
+def create_mock_orders(cur, n):
+    clients = cur.execute("SELECT id FROM cliente").fetchall()
+    drinks, food, dessert = get_items(cur)
     print(clients)
+    print(drinks)
+    print(food)
+    print(dessert)
+
+
+
+def get_items(cur):
+    res = cur.execute(
+        "SELECT id FROM item WHERE categoria = 'Bebida' AND ativo = 1;")
+    drinks = res.fetchall()
+    res = cur.execute(
+        "SELECT id FROM item WHERE categoria = 'Salgado' AND ativo = 1;")
+    food = res.fetchall()
+    res = cur.execute(
+        "SELECT id FROM item WHERE categoria = 'Doce' AND ativo = 1;")
+    dessert = res.fetchall()
+
+    return drinks, food, dessert
 
 
 if __name__ == '__main__':
