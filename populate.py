@@ -12,7 +12,8 @@ def main():
     create_tables(cur)
     create_menu_items(cur)
     create_mock_clients(cur, 1200)
-    create_mock_orders(cur, 1)
+    create_mock_orders(cur, 30 * 80 * 12)
+    create_order_relations(cur)
 
     con.commit()
     con.close()
@@ -62,6 +63,20 @@ def create_mock_orders(cur, n):
     cur.executemany("INSERT INTO pedido VALUES(:id, :cliente, :data)", orders)
 
 
+def create_order_relations(cur):
+    orders = cur.execute("SELECT id FROM pedido").fetchall()
+    drinks, food, dessert = get_items(cur)
+    relations = []
+
+    for order in orders:
+        relations.append(add_item(cur, order[0], drinks))
+        relations.append(add_item(cur, order[0], food))
+        relations.append(add_item(cur, order[0], dessert))
+
+    cur.executemany("INSERT INTO item_no_pedido VALUES(:id, :pedido, :item, \
+        :quantidade)", relations)
+
+
 def get_items(cur):
     res = cur.execute(
         "SELECT id FROM item WHERE categoria = 'Bebida' AND ativo = 1;")
@@ -74,6 +89,16 @@ def get_items(cur):
     dessert = res.fetchall()
 
     return drinks, food, dessert
+
+
+def add_item(cur, order, items):
+    relation = {
+        'id': None,
+        'pedido': order,
+        'item': random.choice(items)[0],
+        'quantidade': random.randint(1, 4)
+    }
+    return relation
 
 
 if __name__ == '__main__':
