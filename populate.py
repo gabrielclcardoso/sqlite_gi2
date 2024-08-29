@@ -42,18 +42,24 @@ def create_mock_clients(cur, n):
         cli['aniversario'] = random.randint(int(birth_start), int(birth_end))
         cli['data_de_registro'] = random.randint(int(reg_start), int(reg_end))
         clients.append(cli)
+
     cur.executemany("INSERT INTO cliente VALUES(:id, :telefone, :nome, \
                     :aniversario, :data_de_registro)", clients)
 
 
 def create_mock_orders(cur, n):
     clients = cur.execute("SELECT id FROM cliente").fetchall()
-    drinks, food, dessert = get_items(cur)
-    print(clients)
-    print(drinks)
-    print(food)
-    print(dessert)
+    start = time.mktime(time.strptime("2023-01-01", "%Y-%m-%d"))
+    end = time.mktime(time.strptime("2023-12-31", "%Y-%m-%d"))
+    orders = []
 
+    for i in range(n):
+        order = {'id': None}
+        order['cliente'] = random.choice(clients)[0]
+        order['data'] = random.randint(int(start), int(end))
+        orders.append(order)
+
+    cur.executemany("INSERT INTO pedido VALUES(:id, :cliente, :data)", orders)
 
 
 def get_items(cur):
