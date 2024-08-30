@@ -1,6 +1,8 @@
 import sqlite3
 import time
 
+import constants as const
+
 menu = '''
 1 - Ver clientes que pediram item em certo mês
 2 - Ver quantidade de item vendido em um certo mês
@@ -22,7 +24,14 @@ def main():
         except Exception:
             print('Entrada Invalida')
 
-    clients_who_ordered_items(cur)
+
+def call(choice, cur):
+    if choice == 1:
+        clients_who_ordered_items(cur)
+    elif choice == 2:
+        count_items(cur)
+    else:
+        exit(0)
 
 
 def clients_who_ordered_items(cur):
@@ -32,6 +41,15 @@ def clients_who_ordered_items(cur):
     month = get_month()
 
     list_clients(cur, id, month)
+
+
+def count_items(cur):
+    items = cur.execute("SELECT id, nome FROM item").fetchall()
+
+    id = get_item_id(items)
+    month = get_month()
+
+    count(cur, id, month)
 
 
 def get_item_id(items):
@@ -65,29 +83,38 @@ def get_month():
 
 
 def list_clients(cur, item_id, month):
-    start = time.mktime(time.strptime(f'2023-{month}-1', '%Y-%m-%d'))
-    end = time.mktime(time.strptime(f'2023-{month}-31', '%Y-%m-%d'))
+    day = const.FINAL_DAY[month - 1]
+    start = time.mktime(time.strptime(f'2023-{month}-{day}', '%Y-%m-%d'))
+    end = time.mktime(time.strptime(f'2023-{month}-{day}', '%Y-%m-%d'))
 
-    script = f"""
+    script = f'''
         SELECT c.telefone, c.nome FROM pedido AS p
         JOIN cliente AS c ON p.cliente = c.id
         JOIN item_no_pedido AS ip ON p.id = ip.pedido
         JOIN item AS i ON ip.item = i.id
         WHERE data >= {start} AND data <= {end} AND i.id = {item_id}
-    """
+    '''
     clients = cur.execute(script).fetchall()
 
     for telefone, name in clients:
         print(f'{name} | Telefone: {telefone}')
 
 
-def call(choice, cur):
-    if choice == 1:
-        clients_who_ordered_items(cur)
-    elif choice == 2:
-        print(2)
-    else:
-        exit(0)
+def count(cur, item_id, month):
+    day = const.FINAL_DAY[month - 1]
+    start = time.mktime(time.strptime(f'2023-{month}-1', '%Y-%m-%d'))
+    end = time.mktime(time.strptime(f'2023-{month}-{day}', '%Y-%m-%d'))
+
+    script = f'''
+    SELECT SUM(ip.quantidade) FROM item_no_pedido AS ip
+    JOIN pedido AS p ON ip.pedido = p.id
+    JOIN item AS i on ip.item = i.id
+    WHERE data >= {start} AND data <= {end} AND i.id = {item_id}
+    '''
+    amount = cur.execute(script).fetchone()[0]
+    if amount is None:
+        amount = 0
+    print(amount)
 
 
 if __name__ == '__main__':

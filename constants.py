@@ -166,3 +166,5 @@ NAMES = ["Helena", "Alice", "Laura", "Maria Alice", "Cecília", "Maitê", "Liz",
          "Davi Miguel", "Valentim", "Caleb", "José Pedro", "Liam", "Dante",
          "Gael Henrique", "Henry Gabriel", "Kevin", "Arthur Gabriel", "Asafe",
          "Erick"]
+
+FINAL_DAY = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
