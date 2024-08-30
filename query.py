@@ -1,10 +1,26 @@
 import sqlite3
 import time
 
+menu = '''
+1 - Ver clientes que pediram item em certo mês
+2 - Ver quantidade de item vendido em um certo mês
+3 - Sair do programa
+'''
+
 
 def main():
     con = sqlite3.connect("onda_do_trigo.db")
     cur = con.cursor()
+
+    while True:
+        u_input = input(f'{menu}\nSelecione o que você quer fazer: ')
+        try:
+            choice = int(u_input)
+            if choice > 3 or choice <= 0:
+                raise Exception
+            call(choice, cur)
+        except Exception:
+            print('Entrada Invalida')
 
     clients_who_ordered_items(cur)
 
@@ -63,6 +79,15 @@ def list_clients(cur, item_id, month):
 
     for telefone, name in clients:
         print(f'{name} | Telefone: {telefone}')
+
+
+def call(choice, cur):
+    if choice == 1:
+        clients_who_ordered_items(cur)
+    elif choice == 2:
+        print(2)
+    else:
+        exit(0)
 
 
 if __name__ == '__main__':
