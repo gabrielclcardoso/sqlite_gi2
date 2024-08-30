@@ -15,14 +15,16 @@ def main():
     cur = con.cursor()
 
     while True:
-        u_input = input(f'{menu}\nSelecione o que você quer fazer: ')
         try:
+            u_input = input(f'{menu}\nSelecione o que você quer fazer: ')
             choice = int(u_input)
             if choice > 3 or choice <= 0:
                 raise Exception
             call(choice, cur)
         except Exception:
             print('Entrada Invalida')
+        except (KeyboardInterrupt, EOFError):
+            exit(0)
 
 
 def call(choice, cur):
