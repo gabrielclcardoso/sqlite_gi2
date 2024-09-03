@@ -116,7 +116,7 @@ def count(cur, item_id, month):
     amount = cur.execute(script).fetchone()[0]
     if amount is None:
         amount = 0
-    print(amount)
+    print(f'\nQuantidade de itens pedidos no mês selecionado: {amount}')
 
 
 if __name__ == '__main__':
