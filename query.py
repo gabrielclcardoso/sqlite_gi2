@@ -86,7 +86,7 @@ def get_month():
 
 def list_clients(cur, item_id, month):
     day = const.FINAL_DAY[month - 1]
-    start = time.mktime(time.strptime(f'2023-{month}-{day}', '%Y-%m-%d'))
+    start = time.mktime(time.strptime(f'2023-{month}-1', '%Y-%m-%d'))
     end = time.mktime(time.strptime(f'2023-{month}-{day}', '%Y-%m-%d'))
 
     script = f'''
